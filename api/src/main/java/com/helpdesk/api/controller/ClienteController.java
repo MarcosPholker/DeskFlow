@@ -21,12 +21,7 @@ public class ClienteController {
 
 	@PostMapping("/login")
 	public String login(@RequestBody LoginDTO loginDTO) {
-<<<<<<< HEAD
-		clienteService.Login(loginDTO.getEmail(), loginDTO.getPassword());
-		return "Usuario logado com sucesso!";
-=======
 		return clienteService.Login(loginDTO.getEmail(), loginDTO.getPassword());
->>>>>>> branch 'master' of https://github.com:443/MarcosPholker/DeskFlow.git
 	}
 	
 	@PostMapping("/cadastro")

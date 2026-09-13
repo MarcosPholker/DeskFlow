@@ -16,10 +16,6 @@ public class ChamadoDTO {
 	@Enumerated(EnumType.STRING)
 	private StatusChamado status;
 
-<<<<<<< HEAD
-	@NotNull
-=======
->>>>>>> branch 'master' of https://github.com:443/MarcosPholker/DeskFlow.git
 	private Long idCliente;
 
 	public ChamadoDTO(@NotBlank String titulo, @NotBlank String descricao, StatusChamado status,

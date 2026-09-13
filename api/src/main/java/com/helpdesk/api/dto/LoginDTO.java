@@ -7,11 +7,7 @@ public class LoginDTO {
 	public LoginDTO() {
 	}
 	
-<<<<<<< HEAD
-	public LoginDTO(String name, String email, String password) {
-=======
 	public LoginDTO(String email, String password) {
->>>>>>> branch 'master' of https://github.com:443/MarcosPholker/DeskFlow.git
 		this.email = email;
 		this.password = password;
 	}
