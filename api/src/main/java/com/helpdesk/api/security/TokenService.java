@@ -29,4 +29,19 @@ public class TokenService {
                 .signWith(getKey())
                 .compact();
     }
+    public String validarToken(String token) {
+
+        System.out.println("Validando token...");
+
+        String email = Jwts.parser()
+                .verifyWith((javax.crypto.SecretKey) getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+
+        System.out.println("Email encontrado no token: " + email);
+
+        return email;
+    }
 }

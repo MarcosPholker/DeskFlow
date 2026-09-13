@@ -16,7 +16,6 @@ public class ChamadoDTO {
 	@Enumerated(EnumType.STRING)
 	private StatusChamado status;
 
-	@NotNull
 	private Long idCliente;
 
 	public ChamadoDTO(@NotBlank String titulo, @NotBlank String descricao, StatusChamado status,
