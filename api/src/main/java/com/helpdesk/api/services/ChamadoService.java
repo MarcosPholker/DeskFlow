@@ -1,6 +1,7 @@
 package com.helpdesk.api.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,19 @@ public class ChamadoService {
 		this.chamadoRepository = chamadoRepository;
 		this.clienteRepositories = clienteRepositories;
 	}
+	
+	public Chamado chamadoPorId(Long id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName();
+		Cliente cliente = clienteRepositories.findByEmail(email).orElseThrow(() -> new EmailCadastroException("email nao encontrado"));
+		
+		Chamado chamado = chamadoRepository.findById(id).orElseThrow(() -> new ChamadoNotFoundException("id do chamado nao encontrado"));
+		
+		if(!cliente.getId().equals(chamado.getCliente().getId())) {
+			throw new ChamadoNotFoundException("chamado nao encontrado");
+		}
+		return chamadoRepository.findById(id).orElseThrow(() -> new ChamadoNotFoundException("chamado nao encontrado"));
+		}
 
 	public Chamado novoChamado(ChamadoDTO chamadoDTO) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

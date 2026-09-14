@@ -16,7 +16,7 @@ public class ChamadoDTO {
 	@Enumerated(EnumType.STRING)
 	private StatusChamado status;
 
-	private Long idCliente;
+	private Long clienteId;
 
 	public ChamadoDTO(@NotBlank String titulo, @NotBlank String descricao, StatusChamado status,
 			@NotNull Long idCliente) {
@@ -24,7 +24,7 @@ public class ChamadoDTO {
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.status = status;
-		this.idCliente = idCliente;
+		this.clienteId = idCliente;
 	}
 
 	public StatusChamado getStatus() {
@@ -39,11 +39,11 @@ public class ChamadoDTO {
 	}
 
 	public Long getIdCliente() {
-		return idCliente;
+		return clienteId;
 	}
 
 	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+		this.clienteId = idCliente;
 	}
 
 	public String getTitulo() {

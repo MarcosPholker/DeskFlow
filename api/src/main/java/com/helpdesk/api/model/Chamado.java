@@ -52,15 +52,11 @@ public class Chamado {
 		this.status = status;
 	}
 
-	@JsonIgnore
+	//@JsonIgnore
 	public Cliente getCliente() {
 		return cliente;
 	}
 	
-	public Long getClienteId() {
-		return cliente.getId();
-	}
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}

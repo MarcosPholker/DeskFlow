@@ -27,10 +27,16 @@ public class ChamadoController {
 	public ChamadoController(ChamadoService chamadoService) {
 		this.chamadoService = chamadoService;
 	}
+	
+	@GetMapping("/chamado/{id}")
+	public ResponseEntity<Chamado> chamadoPorId(@PathVariable Long id){
+		return ResponseEntity.ok(chamadoService.chamadoPorId(id));
+	}
 
 	@GetMapping("/chamado/listar")
-	public List<Chamado> listarChamados() {
-		return chamadoService.listarChamado();
+	public ResponseEntity<List<Chamado>> listarChamados() {
+		List<Chamado> chamados = chamadoService.listarChamado();
+		return ResponseEntity.ok().body(chamados);
 	}
 
 	@PostMapping("/chamado")
