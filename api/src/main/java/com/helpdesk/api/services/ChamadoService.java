@@ -1,66 +1,109 @@
 package com.helpdesk.api.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.helpdesk.api.dto.ChamadoDTO;
 import com.helpdesk.api.enums.StatusChamado;
 import com.helpdesk.api.exception.ChamadoNotFoundException;
-import com.helpdesk.api.exception.ClienteNotFoundException;
 import com.helpdesk.api.exception.EmailCadastroException;
 import com.helpdesk.api.model.Chamado;
-import com.helpdesk.api.model.Cliente;
+import com.helpdesk.api.model.Usuario;
 import com.helpdesk.api.repositories.ChamadoRepository;
-import com.helpdesk.api.repositories.ClienteRepositories;
+import com.helpdesk.api.repositories.UsuarioRepositories;
 
 @Service
 public class ChamadoService {
 	private ChamadoRepository chamadoRepository;
-	private ClienteRepositories clienteRepositories;
+	private UsuarioRepositories usuarioRepositories;
 
-	public ChamadoService(ChamadoRepository chamadoRepository, ClienteRepositories clienteRepositories) {
+	public ChamadoService(ChamadoRepository chamadoRepository, UsuarioRepositories usuarioRepositories) {
 		this.chamadoRepository = chamadoRepository;
-		this.clienteRepositories = clienteRepositories;
+		this.usuarioRepositories = usuarioRepositories;
+	}
+
+	public Chamado chamadoPorId(Long id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName();
+		Usuario usuario = usuarioRepositories.findByEmail(email)
+				.orElseThrow(() -> new EmailCadastroException("email nao encontrado"));
+
+		Chamado chamado = chamadoRepository.findById(id)
+				.orElseThrow(() -> new ChamadoNotFoundException("id do chamado nao encontrado"));
+
+		if (!usuario.getId().equals(chamado.getUsuario().getId())) {
+			throw new ChamadoNotFoundException("chamado nao encontrado");
+		}
+		return chamadoRepository.findById(id).orElseThrow(() -> new ChamadoNotFoundException("chamado nao encontrado"));
 	}
 
 	public Chamado novoChamado(ChamadoDTO chamadoDTO) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String email = authentication.getName();
-		Cliente cliente = clienteRepositories.findByEmail(email).orElseThrow(()-> new EmailCadastroException("email nao encontrado"));
-		
-		Chamado chamado = new Chamado(null, chamadoDTO.getTitulo(), chamadoDTO.getDescricao(), StatusChamado.ABERTO, cliente);
-		return chamadoRepository.save(chamado);
-	}
-	
+
+    Authentication authentication =
+            SecurityContextHolder.getContext().getAuthentication();
+
+    String email = authentication.getName();
+
+	    Usuario usuario = usuarioRepositories.findByEmail(email)
+            .orElseThrow(() ->
+                    new EmailCadastroException("email nao encontrado"));
+
+    long quantidadeAbertos =
+	            chamadoRepository.countByUsuarioIdAndStatus(
+	                    usuario.getId(),
+                    StatusChamado.ABERTO
+            );
+
+    if (quantidadeAbertos >= 1) {
+        throw new IllegalArgumentException(
+				"O usuario atingiu o limite máximo de 1 chamado aberto."
+        );
+    }
+
+    Chamado chamado = new Chamado(
+            null,
+            chamadoDTO.getTitulo(),
+            chamadoDTO.getDescricao(),
+            StatusChamado.ABERTO,
+	            usuario
+    );
+
+    return chamadoRepository.save(chamado);
+}
+
 	public List<Chamado> listarChamado() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName();
-		Cliente cliente = clienteRepositories.findByEmail(email).orElseThrow(()-> new EmailCadastroException("email nao encontrado"));
-		return chamadoRepository.findAllByClienteId(cliente.getId());
+		Usuario usuario = usuarioRepositories.findByEmail(email)
+				.orElseThrow(() -> new EmailCadastroException("email nao encontrado"));
+		return chamadoRepository.findAllByUsuarioIdOrderByIdDesc(usuario.getId());
 	}
-	
-	
-	public void deletarChamado(Long id) {
-		Chamado chamado = chamadoRepository.findById(id).orElseThrow(()-> new ChamadoNotFoundException("chamado não encontrado"));
-		chamadoRepository.delete(chamado);
-	}
-	
+
 	public void alterarStatus(Long id, String status) {
 
-	    Chamado chamado = chamadoRepository.findById(id)
-	            .orElseThrow(() -> new ChamadoNotFoundException(
-	                    "Status não alterado, chamado não encontrado"));
+		Chamado chamado = chamadoRepository.findById(id)
+				.orElseThrow(() -> new ChamadoNotFoundException(
+						"Status não alterado, chamado não encontrado"));
 
-	    StatusChamado novoStatus = StatusChamado.valueOf(status);
+		StatusChamado novoStatus = StatusChamado.valueOf(status);
 
-	    chamado.setStatus(novoStatus);
-	    chamadoRepository.save(chamado);
+		if (chamado.getStatus() == StatusChamado.FECHADO && novoStatus == StatusChamado.ABERTO) {
+			throw new IllegalArgumentException("Não é possível reabrir um chamado fechado.");
+		}
+
+		if (chamado.getStatus() == StatusChamado.ABERTO && novoStatus == StatusChamado.FECHADO) {
+			chamado.setStatus(novoStatus);
+			chamadoRepository.save(chamado);
+			return;
+		}
+
+		if (chamado.getStatus() == StatusChamado.FECHADO && novoStatus == StatusChamado.FECHADO) {
+			return;
+		}
+
+		throw new IllegalArgumentException("A transição de status permitida é apenas ABERTO -> FECHADO.");
 	}
 }

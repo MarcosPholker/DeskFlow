@@ -43,13 +43,20 @@ public class GlobalExceptionHandler {
 	    return ResponseEntity.status(404).body(erro);
 	}
 	
-	@ExceptionHandler(ClienteNotFoundException.class)
-	public ResponseEntity<Map<String, String>> clienteNotFoundException(ClienteNotFoundException ex) {
+	@ExceptionHandler(UsuarioNotFoundException.class)
+	public ResponseEntity<Map<String, String>> usuarioNotFoundException(UsuarioNotFoundException ex) {
 
 	    Map<String, String> erro = new HashMap<>();
 	    erro.put("erro", ex.getMessage());
 
 	    return ResponseEntity.status(404).body(erro);
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Map<String, String>> illegalArgumentException(IllegalArgumentException ex) {
+	    Map<String, String> erro = new HashMap<>();
+	    erro.put("erro", ex.getMessage());
+	    return ResponseEntity.badRequest().body(erro);
 	}
 
 }

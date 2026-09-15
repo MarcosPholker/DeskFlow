@@ -3,7 +3,6 @@ package com.helpdesk.api.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,22 +26,22 @@ public class ChamadoController {
 	public ChamadoController(ChamadoService chamadoService) {
 		this.chamadoService = chamadoService;
 	}
+	
+	@GetMapping("/chamado/{id}")
+	public ResponseEntity<Chamado> chamadoPorId(@PathVariable Long id){
+		return ResponseEntity.ok(chamadoService.chamadoPorId(id));
+	}
 
 	@GetMapping("/chamado/listar")
-	public List<Chamado> listarChamados() {
-		return chamadoService.listarChamado();
+	public ResponseEntity<List<Chamado>> listarChamados() {
+		List<Chamado> chamados = chamadoService.listarChamado();
+		return ResponseEntity.ok().body(chamados);
 	}
 
 	@PostMapping("/chamado")
 	public ResponseEntity<Chamado> novoChamado(@Valid @RequestBody ChamadoDTO chamadoDTO) {
-		chamadoService.novoChamado(chamadoDTO);
-		return ResponseEntity.status(201).build();
-	}
-	
-	@DeleteMapping("/chamado/delete/{id}")
-	public ResponseEntity<String> deletarChamado(@PathVariable Long id) {
-	    chamadoService.deletarChamado(id);
-	    return ResponseEntity.ok("chamado deletado com sucesso!");
+		Chamado chamado = chamadoService.novoChamado(chamadoDTO);
+		return ResponseEntity.status(201).body(chamado);
 	}
 	
 	@PutMapping("/chamado/alterar/{id}")
