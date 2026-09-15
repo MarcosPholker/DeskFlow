@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DeskFlow - Meus Chamados</title>
+
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+
+<body>
+
+    <div class="chamados-container">
+
+        <!-- CABEÇALHO -->
+
+        <header class="topo">
+
+            <div>
+                <h1>DeskFlow</h1>
+                <p>Central de atendimento</p>
+            </div>
+
+            <button id="logout" class="btn-sair">
+                Sair
+            </button>
+
+        </header>
+
+
+        <!-- ÁREA PRINCIPAL -->
+
+        <main>
+
+            <!-- TÍTULO + BOTÃO -->
+
+            <div class="cabecalho-chamados">
+
+                <div>
+                    <h2>Meus chamados</h2>
+                    <p>Acompanhe seus chamados e solicitações.</p>
+                </div>
+
+                <button id="novo-chamado" class="btn-novo">
+                    + Novo chamado
+                </button>
+
+            </div>
+
+
+
+            <!-- FORMULÁRIO -->
+
+            <div id="formulario-chamado" class="formulario-chamado">
+
+                <div class="formulario-header">
+
+                    <div>
+                        <h2>Novo chamado</h2>
+                        <p>Descreva o problema que você está enfrentando.</p>
+                    </div>
+
+                </div>
+
+
+                <form id="form-chamado">
+
+                    <div class="campo">
+
+                        <label for="titulo">
+                            Título
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titulo"
+                            placeholder="Ex: Computador não liga"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="descricao">
+                            Descrição
+                        </label>
+
+                        <textarea
+                            id="descricao"
+                            placeholder="Descreva detalhadamente o problema..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="acoes-formulario">
+
+                        <button
+                            type="button"
+                            id="cancelar-chamado"
+                            class="btn-cancelar"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn-criar"
+                        >
+                            Criar chamado
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div id="mensagem" class="mensagem"></div>
+
+
+            <!-- LISTA -->
+
+            <div id="lista-chamados"></div>
+
+        </main>
+
+    </div>
+
+
+    <script src="/script/script.js"></script>
+
+</body>
+
+</html>

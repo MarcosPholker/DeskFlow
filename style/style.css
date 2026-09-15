@@ -1,0 +1,509 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #f4f6f8;
+
+    color: #1f2937;
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.chamados-container {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    padding: 30px 25px;
+}
+
+
+/* =========================
+   TOPO
+========================= */
+
+.topo {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+
+    padding: 20px 25px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 30px;
+}
+
+.topo h1 {
+    margin: 0;
+
+    font-size: 28px;
+}
+
+.topo p {
+    margin: 5px 0 0;
+
+    color: #6b7280;
+}
+
+
+/* =========================
+   BOTÃO SAIR
+========================= */
+
+.btn-sair {
+    border: none;
+
+    background-color: #f3f4f6;
+
+    color: #374151;
+
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.btn-sair:hover {
+    background-color: #e5e7eb;
+}
+
+
+/* =========================
+   CABEÇALHO CHAMADOS
+========================= */
+
+.cabecalho-chamados {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.cabecalho-chamados h2 {
+    margin: 0;
+
+    font-size: 24px;
+}
+
+.cabecalho-chamados p {
+    margin: 6px 0 0;
+
+    color: #6b7280;
+}
+
+
+/* =========================
+   BOTÃO NOVO
+========================= */
+
+.btn-novo {
+    border: none;
+
+    background-color: #2563eb;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+.btn-novo:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* =========================
+   FORMULÁRIO
+========================= */
+
+.formulario-chamado {
+    display: none;
+
+    background-color: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 25px;
+}
+
+.formulario-header h2 {
+    margin: 0;
+}
+
+.formulario-header p {
+    margin-top: 6px;
+
+    color: #6b7280;
+}
+
+
+/* =========================
+   CAMPOS
+========================= */
+
+.campo {
+    margin-top: 20px;
+}
+
+.campo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+.campo input,
+.campo textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    outline: none;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    border-color: #2563eb;
+}
+
+.campo textarea {
+    min-height: 130px;
+
+    resize: vertical;
+}
+
+
+/* =========================
+   BOTÕES FORMULÁRIO
+========================= */
+
+.acoes-formulario {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.btn-cancelar {
+    border: none;
+
+    background-color: #f3f4f6;
+
+    color: #374151;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.btn-cancelar:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-criar {
+    border: none;
+
+    background-color: #2563eb;
+
+    color: white;
+
+    padding: 11px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.btn-criar:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* =========================
+   CARDS DOS CHAMADOS
+========================= */
+
+#lista-chamados {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.chamado {
+    background-color: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+    border-left: 4px solid #2563eb;
+}
+
+.chamado h3 {
+    margin: 0 0 10px;
+
+    font-size: 18px;
+}
+
+.chamado p {
+    margin: 0 0 15px;
+
+    color: #6b7280;
+
+    line-height: 1.5;
+}
+
+.chamado strong {
+    display: inline-block;
+
+    background-color: #eff6ff;
+
+    color: #2563eb;
+
+    padding: 6px 10px;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   BOTÃO EXCLUIR
+========================= */
+
+.chamado button {
+    float: right;
+
+    border: none;
+
+    background-color: #fee2e2;
+
+    color: #dc2626;
+
+    padding: 7px 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.chamado button:hover {
+    background-color: #fecaca;
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 700px) {
+
+    .chamados-container {
+        padding: 15px;
+    }
+
+    .cabecalho-chamados {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .btn-novo {
+        width: 100%;
+    }
+
+}
+
+/* =========================
+   TELA DE LOGIN
+========================= */
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+
+    background-color: white;
+
+    padding: 40px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Centraliza o login na tela */
+body:has(.login-container) {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f4f6f8;
+}
+
+
+/* TÍTULO */
+
+.login-container h1 {
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 30px;
+
+    color: #2563eb;
+}
+
+.login-container p {
+    margin: 8px 0 30px;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+
+/* CAMPOS */
+
+.login-container label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.login-container input {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.login-container input:focus {
+    border-color: #2563eb;
+}
+
+
+/* BOTÃO */
+
+.login-container button {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background-color: #2563eb;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* =========================
+   MENSAGEM DE ERRO
+========================= */
+
+   .mensagem {
+    display: none;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.mensagem.erro {
+    display: block;
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.mensagem.sucesso {
+    display: block;
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
