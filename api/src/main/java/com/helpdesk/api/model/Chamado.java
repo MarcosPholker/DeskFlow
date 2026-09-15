@@ -1,7 +1,6 @@
 package com.helpdesk.api.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.helpdesk.api.enums.StatusChamado;
 
 import jakarta.persistence.Entity;
@@ -11,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
@@ -27,7 +27,8 @@ public class Chamado {
 	
 
 	@ManyToOne
-	private Cliente cliente;
+	@JoinColumn(name = "cliente_id")
+	private Usuario usuario;
 
 	
 	
@@ -36,12 +37,12 @@ public class Chamado {
 	}
 
 	public Chamado(Long id, @NotEmpty String titulo, @NotEmpty String descricao, StatusChamado status,
-			Cliente cliente) {
+			Usuario usuario) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.status = status;
-		this.cliente = cliente;
+		this.usuario = usuario;
 	}
 
 	public StatusChamado getStatus() {
@@ -53,12 +54,12 @@ public class Chamado {
 	}
 
 	//@JsonIgnore
-	public Cliente getCliente() {
-		return cliente;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 	
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Long getId() {

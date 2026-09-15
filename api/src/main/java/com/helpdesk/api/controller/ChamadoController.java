@@ -3,7 +3,6 @@ package com.helpdesk.api.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,14 +40,8 @@ public class ChamadoController {
 
 	@PostMapping("/chamado")
 	public ResponseEntity<Chamado> novoChamado(@Valid @RequestBody ChamadoDTO chamadoDTO) {
-		chamadoService.novoChamado(chamadoDTO);
-		return ResponseEntity.status(201).build();
-	}
-	
-	@DeleteMapping("/chamado/delete/{id}")
-	public ResponseEntity<String> deletarChamado(@PathVariable Long id) {
-	    chamadoService.deletarChamado(id);
-	    return ResponseEntity.ok("chamado deletado com sucesso!");
+		Chamado chamado = chamadoService.novoChamado(chamadoDTO);
+		return ResponseEntity.status(201).body(chamado);
 	}
 	
 	@PutMapping("/chamado/alterar/{id}")
